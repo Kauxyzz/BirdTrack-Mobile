@@ -10,8 +10,8 @@ import {
   Button,
 } from "react-native";
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
-import { db } from "firebase/config";
-import { useRouter } from "expo-router"; // necessário para navegação
+import { db } from "../../firebase/config"; // <- caminho corrigido
+import { useRouter } from "expo-router";
 
 type RegistroMonitoramento = {
   id?: string;
@@ -83,7 +83,6 @@ export default function MonitoramentoScreen() {
         />
       )}
 
-      {/* Botão para navegar até a tela de cadastro */}
       <Button title="Novo Monitoramento" onPress={() => router.push("/monitoramento/novo")} />
     </View>
   );

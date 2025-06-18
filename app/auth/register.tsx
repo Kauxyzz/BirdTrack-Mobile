@@ -8,7 +8,7 @@ import {
   Alert,
 } from "react-native";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "firebase/config";
+import { auth, db } from "@firebase/config";
 import { doc, setDoc } from "firebase/firestore";
 import { useRouter } from "expo-router";
 
@@ -56,37 +56,10 @@ export default function Register() {
 }
 
 const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    justifyContent: "center",
-    backgroundColor: "#fff", 
-  },
-  overlay: {
-    flex: 1,
-    justifyContent: "center",
-    padding: 24,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: "bold",
-    color: "#003366",
-    textAlign: "center",
-    marginBottom: 24,
-  },
-  input: {
-    backgroundColor: "#f2f2f2",
-    borderRadius: 8,
-    padding: 12,
-    marginBottom: 16,
-  },
-  button: {
-    backgroundColor: "#003366",
-    padding: 16,
-    borderRadius: 8,
-    alignItems: "center",
-  },
-  buttonText: {
-    color: "#fff",
-    fontWeight: "bold",
-  },
+  background: { flex: 1, justifyContent: "center", backgroundColor: "#fff" },
+  overlay: { flex: 1, justifyContent: "center", padding: 24 },
+  title: { fontSize: 28, fontWeight: "bold", color: "#003366", textAlign: "center", marginBottom: 24 },
+  input: { backgroundColor: "#f2f2f2", borderRadius: 8, padding: 12, marginBottom: 16 },
+  button: { backgroundColor: "#003366", padding: 16, borderRadius: 8, alignItems: "center" },
+  buttonText: { color: "#fff", fontWeight: "bold" },
 });

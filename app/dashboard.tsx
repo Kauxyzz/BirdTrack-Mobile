@@ -11,9 +11,9 @@ const Dashboard = () => {
           <Text style={styles.buttonText}>Documentos</Text>
         </TouchableOpacity>
       </Link>
-      <Link href="/mortalidade" asChild>
+      <Link href="/monitoramento" asChild>
         <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Mortalidade</Text>
+          <Text style={styles.buttonText}>Monitoramento</Text>
         </TouchableOpacity>
       </Link>
     </View>

@@ -1,35 +1,36 @@
 import { useEffect, useState } from "react";
-import { View, Text, FlatList, Button, StyleSheet, Alert, ActivityIndicator, TouchableOpacity } from "react-native";
-import { collection, getDocs, addDoc, deleteDoc, doc } from "firebase/firestore";
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  ActivityIndicator,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
+import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { db } from "@/firebase/config";
-import { useRouter } from "expo-router";
 
-export type RegistroMortalidade = {
+type RegistroMonitoramento = {
   id?: string;
   data: string;
-  quantidade: number;
-  causa: string;
+  granja: string;
+  "Media Peso": string;
+  Mortos: number;
+  "Observação": string;
 };
 
-export default function MortalidadeScreen() {
-  const [registros, setRegistros] = useState<RegistroMortalidade[]>([]);
+export default function MonitoramentoScreen() {
+  const [registros, setRegistros] = useState<RegistroMonitoramento[]>([]);
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
 
   const buscarRegistros = async () => {
     try {
-      const querySnapshot = await getDocs(collection(db, "mortalidade"));
-      const dados: RegistroMortalidade[] = [];
-
-      querySnapshot.forEach((docItem) => {
-        const { data, quantidade, causa } = docItem.data();
-        dados.push({
-          id: docItem.id,
-          data,
-          quantidade,
-          causa,
-        });
-      });
+      const snapshot = await getDocs(collection(db, "monitoramento"));
+      const dados: RegistroMonitoramento[] = snapshot.docs.map((docItem) => ({
+        id: docItem.id,
+        ...docItem.data(),
+      })) as RegistroMonitoramento[];
 
       setRegistros(dados);
     } catch (error) {
@@ -39,25 +40,11 @@ export default function MortalidadeScreen() {
     }
   };
 
-  const adicionar = async () => {
-    try {
-      const novoRegistro: Omit<RegistroMortalidade, "id"> = {
-        data: new Date().toISOString().split("T")[0],
-        quantidade: 10,
-        causa: "Doença",
-      };
-      const docRef = await addDoc(collection(db, "mortalidade"), novoRegistro);
-      setRegistros([...registros, { ...novoRegistro, id: docRef.id }]);
-    } catch (error) {
-      Alert.alert("Erro", "Erro ao adicionar registro.");
-    }
-  };
-
   const deletarRegistro = async (id?: string) => {
     if (!id) return;
     try {
-      await deleteDoc(doc(db, "mortalidade", id));
-      setRegistros(registros.filter((r) => r.id !== id));
+      await deleteDoc(doc(db, "monitoramento", id));
+      setRegistros((prev) => prev.filter((r) => r.id !== id));
       Alert.alert("Sucesso", "Registro deletado com sucesso.");
     } catch (error) {
       Alert.alert("Erro", "Erro ao deletar registro.");
@@ -70,7 +57,7 @@ export default function MortalidadeScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Registro de Mortalidade</Text>
+      <Text style={styles.title}>Monitoramento de Produção</Text>
 
       {loading ? (
         <ActivityIndicator size="large" color="#007bff" />
@@ -83,16 +70,15 @@ export default function MortalidadeScreen() {
               style={styles.card}
               onLongPress={() => deletarRegistro(item.id)}
             >
-              <Text style={styles.cardTitle}>
-                {item.quantidade} aves - {item.causa}
-              </Text>
-              <Text style={styles.cardText}>Data: {item.data}</Text>
+              <Text style={styles.cardTitle}>{item.granja}</Text>
+              <Text>Data: {item.data}</Text>
+              <Text>Mortos: {item.Mortos}</Text>
+              <Text>Média Peso: {item["Media Peso"]}</Text>
+              <Text>Observação: {item["Observação"]}</Text>
             </TouchableOpacity>
           )}
         />
       )}
-
-      <Button title="Registrar Mortalidade" onPress={adicionar} />
     </View>
   );
 }
@@ -109,17 +95,14 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   card: {
-    backgroundColor: "#f0f0f0",
+    backgroundColor: "#f9f9f9",
     padding: 15,
-    marginBottom: 10,
     borderRadius: 8,
+    marginBottom: 10,
   },
   cardTitle: {
+    fontSize: 18,
     fontWeight: "bold",
-    fontSize: 16,
-    marginBottom: 4,
-  },
-  cardText: {
-    color: "#333",
+    marginBottom: 5,
   },
 });

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { View, Text, FlatList, Button, StyleSheet, Alert, ActivityIndicator, TouchableOpacity } from "react-native";
 import { collection, getDocs, addDoc, deleteDoc, doc } from "firebase/firestore";
-import { db } from "./firebase/config";
+import { db } from "@/firebase/config";
 import { useRouter } from "expo-router";
 
 export type RegistroMortalidade = {

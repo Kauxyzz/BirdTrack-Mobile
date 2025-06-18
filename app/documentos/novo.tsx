@@ -1,7 +1,14 @@
 import { useState } from "react";
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import { addDoc, collection } from "firebase/firestore";
-import { db } from "../firebase/config";
+import { db } from "@/firebase/config";
 import { useRouter } from "expo-router";
 
 export default function NovoDocumento() {
@@ -29,9 +36,22 @@ export default function NovoDocumento() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Novo Documento</Text>
-      <TextInput style={styles.input} placeholder="Nome do Documento" value={nome} onChangeText={setNome} />
-      <TextInput style={styles.input} placeholder="Data de Vencimento" value={vencimento} onChangeText={setVencimento} />
+      <Text style={styles.title}>Cadastrar Novo Documento</Text>
+
+      <TextInput
+        style={styles.input}
+        placeholder="Nome do Documento"
+        value={nome}
+        onChangeText={setNome}
+      />
+
+      <TextInput
+        style={styles.input}
+        placeholder="Data de Vencimento (ex: 2025-12-31)"
+        value={vencimento}
+        onChangeText={setVencimento}
+      />
+
       <TouchableOpacity style={styles.button} onPress={salvarDocumento}>
         <Text style={styles.buttonText}>Salvar</Text>
       </TouchableOpacity>
@@ -41,8 +61,20 @@ export default function NovoDocumento() {
 
 const styles = StyleSheet.create({
   container: { padding: 20, backgroundColor: "#fff", flex: 1 },
-  title: { fontSize: 20, fontWeight: "bold", marginBottom: 15 },
-  input: { borderWidth: 1, borderColor: "#ccc", borderRadius: 8, padding: 10, marginBottom: 10 },
-  button: { backgroundColor: "#003366", padding: 15, borderRadius: 8, alignItems: "center" },
-  buttonText: { color: "#fff", fontWeight: "bold" },
+  title: { fontSize: 20, fontWeight: "bold", marginBottom: 20 },
+  input: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 15,
+    fontSize: 16,
+  },
+  button: {
+    backgroundColor: "#003366",
+    paddingVertical: 15,
+    borderRadius: 8,
+    alignItems: "center",
+  },
+  buttonText: { color: "#fff", fontWeight: "bold", fontSize: 16 },
 });

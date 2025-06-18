@@ -9,11 +9,17 @@ export default function Dashboard() {
       <Text style={styles.title}>BirdTrack</Text>
       <Text style={styles.subtitle}>Painel de Controle</Text>
 
-      <TouchableOpacity style={styles.card} onPress={() => router.push("/documentos")}>
+      <TouchableOpacity
+        style={styles.card}
+        onPress={() => router.push("/documentos")}
+      >
         <Text style={styles.cardText}>📄 Documentos</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.card} onPress={() => router.push("/monitoramento")}>
+      <TouchableOpacity
+        style={styles.card}
+        onPress={() => router.push("/monitoramento")}
+      >
         <Text style={styles.cardText}>📊 Monitoramento</Text>
       </TouchableOpacity>
     </View>

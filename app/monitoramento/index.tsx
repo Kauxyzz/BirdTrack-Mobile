@@ -7,9 +7,11 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   Alert,
+  Button,
 } from "react-native";
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { db } from "@/firebase/config";
+import { useRouter } from "expo-router"; // necessário para navegação
 
 type RegistroMonitoramento = {
   id?: string;
@@ -23,6 +25,7 @@ type RegistroMonitoramento = {
 export default function MonitoramentoScreen() {
   const [registros, setRegistros] = useState<RegistroMonitoramento[]>([]);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   const buscarRegistros = async () => {
     try {
@@ -79,6 +82,9 @@ export default function MonitoramentoScreen() {
           )}
         />
       )}
+
+      {/* Botão para navegar até a tela de cadastro */}
+      <Button title="Novo Monitoramento" onPress={() => router.push("/monitoramento/novo")} />
     </View>
   );
 }

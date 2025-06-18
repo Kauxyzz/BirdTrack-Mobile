@@ -8,7 +8,7 @@ import {
   Alert,
 } from "react-native";
 import { addDoc, collection } from "firebase/firestore";
-import { db } from "@/firebase/config";
+import { db } from "firebase/config";
 import { useRouter } from "expo-router";
 
 export default function NovoDocumento() {

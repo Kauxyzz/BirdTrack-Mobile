@@ -1,5 +1,14 @@
 import { useState } from "react";
-import { View, Text, TextInput, Button, Alert, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  KeyboardAvoidingView,
+  Platform,
+  Alert,
+} from "react-native";
 import { useRouter } from "expo-router";
 
 export default function Login() {
@@ -8,64 +17,104 @@ export default function Login() {
   const router = useRouter();
 
   const handleLogin = () => {
-    const CREDENCIAIS_VALIDAS = {
-      email: "admin@avicola.com",
-      senha: "senha123"
-    };
-
-    if (email === CREDENCIAIS_VALIDAS.email && senha === CREDENCIAIS_VALIDAS.senha) {
+    if (email === "admin@avicola.com" && senha === "senha123") {
       Alert.alert("Sucesso", "Login realizado com sucesso!");
-      router.replace("/dashboard"); 
+      router.replace("/dashboard");
     } else {
       Alert.alert("Erro", "Email ou senha inválidos.");
     }
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
+    >
+      <View style={styles.card}>
+        <Text style={styles.title}>BirdTrack</Text>
+        <Text style={styles.subtitle}>Login</Text>
 
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        keyboardType="email-address"
-        value={email}
-        onChangeText={setEmail}
-        autoCapitalize="none"
-      />
+        <TextInput
+          placeholder="Email"
+          placeholderTextColor="#999"
+          value={email}
+          onChangeText={setEmail}
+          style={styles.input}
+          keyboardType="email-address"
+          autoCapitalize="none"
+        />
 
-      <TextInput
-        style={styles.input}
-        placeholder="Senha"
-        secureTextEntry
-        value={senha}
-        onChangeText={setSenha}
-      />
+        <TextInput
+          placeholder="Senha"
+          placeholderTextColor="#999"
+          value={senha}
+          onChangeText={setSenha}
+          style={styles.input}
+          secureTextEntry
+        />
 
-      <Button title="Entrar" onPress={handleLogin} />
-    </View>
+        <TouchableOpacity style={styles.button} onPress={handleLogin}>
+          <Text style={styles.buttonText}>Entrar</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => router.push("/auth/register")}>
+          <Text style={styles.register}>Criar nova conta</Text>
+        </TouchableOpacity>
+      </View>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#f8fafd",
     justifyContent: "center",
-    padding: 20,
+    paddingHorizontal: 24,
+  },
+  card: {
     backgroundColor: "#fff",
+    borderRadius: 16,
+    padding: 28,
+    shadowColor: "#000",
+    shadowOpacity: 0.08,
+    shadowRadius: 12,
+    elevation: 5,
   },
   title: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: "bold",
-    marginBottom: 20,
+    color: "#003366",
     textAlign: "center",
+    marginBottom: 4,
+  },
+  subtitle: {
+    fontSize: 18,
+    color: "#666",
+    textAlign: "center",
+    marginBottom: 24,
   },
   input: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 8,
-    padding: 12,
+    backgroundColor: "#f2f2f2",
+    padding: 14,
+    borderRadius: 10,
+    marginBottom: 16,
+  },
+  button: {
+    backgroundColor: "#003366",
+    padding: 16,
+    borderRadius: 10,
+    alignItems: "center",
     marginBottom: 12,
-    backgroundColor: "#f9f9f9",
+  },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  register: {
+    color: "#003366",
+    textAlign: "center",
+    fontWeight: "600",
   },
 });

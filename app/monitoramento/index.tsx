@@ -10,7 +10,7 @@ import {
   Button,
 } from "react-native";
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
-import { db } from "@/firebase/config";
+import { db } from "firebase/config";
 import { useRouter } from "expo-router"; // necessário para navegação
 
 type RegistroMonitoramento = {

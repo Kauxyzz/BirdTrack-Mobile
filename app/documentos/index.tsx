@@ -9,7 +9,7 @@ import {
   Alert,
   TouchableOpacity,
 } from 'react-native';
-import { api, Documento } from '@/services/api';
+import { api, Documento } from '@services/api';
 import { useRouter } from 'expo-router'; // IMPORTANTE
 
 const Documentos = () => {

@@ -5,8 +5,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["app/*"],
-      "@firebase/*": ["firebase/*"],
-      "@services/*": ["services/*"]
+      "@firebase/*": ["./firebase/*"],
+      "@services/*": ["./services/*"]
     }
   },
   "include": [

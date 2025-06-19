@@ -1,20 +1,31 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 
-const Index = () => {
+export default function Index() {
   const router = useRouter();
 
-  const goToLogin = () => {
-    router.replace('/auth/login');
-  };
-
   return (
-    <View>
-      <Text>Welcome to the app</Text>
-      <Button title="Go to Login" onPress={goToLogin} />
+    <View style={styles.container}>
+      <Text style={styles.title}>Bem-vindo ao BirdTrack</Text>
+      <Button title="Acessar Login" onPress={() => router.replace('/auth/login')} />
     </View>
   );
-};
+}
 
-export default Index; 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+    backgroundColor: '#f8fafd',
+  },
+  title: {
+    fontSize: 24,
+    marginBottom: 20,
+    color: '#003366',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+});
